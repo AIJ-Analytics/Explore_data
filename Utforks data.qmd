@@ -1,6 +1,0 @@
----
-title: "Utforsk data"
-format: html
-editor: visual
----
-

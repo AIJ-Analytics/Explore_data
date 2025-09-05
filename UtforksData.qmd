@@ -1,0 +1,30 @@
+---
+title: "UtforskData"
+format: html
+editor: visual
+---
+
+```{r}
+# label: setup
+library(readxl)
+```
+
+
+# Leser inn SSB data
+
+```{r}
+library(readxl)
+excelssb <- read_excel("excelssb.xlsx")
+View(excelssb)
+```
+
+
+```{r}
+# eval: false
+view(excelssb)
+```
+
+
+
+#Ny dag 05.09.2025
+
