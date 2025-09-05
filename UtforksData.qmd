@@ -6,14 +6,17 @@ editor: visual
 
 ```{r}
 # label: setup
+library(tidyverse)
+library(readxl)
+library(PxWebApiData)
+library(writexl)
 library(readxl)
 ```
 
 
 # Leser inn SSB data
-
+Hvis du ikke har lastet ned library(readxl) enda så gjør det, jeg har gjort det rett ovenfor får å gjør det enklere
 ```{r}
-library(readxl)
 excelssb <- read_excel("excelssb.xlsx")
 View(excelssb)
 ```
@@ -27,4 +30,96 @@ view(excelssb)
 
 
 #Ny dag 05.09.2025
+
+Endre navn på excel tingene
+ved å bruke c() vil det comine ledd med hverandre fra første til siste som gjort her.
+
+```{r}
+names(excelssb) <- c("knr", "alder", "mnd", "arbl")
+```
+
+For å ikke bare få opp N/A for alle utenom første del av kommunen, så vil eg fylle ut det som er i excelssb med komunenavnene
+
+```{r}
+excelssb <- fill(excelssb, knr, alder, .direction = "down")
+```
+
+Ved å ta rm(et eller annet navn som du har lagd typ ovenfor er det excelssb, men før det hadde du typ tmp fordi du ville ha et annet navn)i consol og tryker enter, vil den bli sletta i systemet når du har gitt det et annet navn som her ble det excelssb.
+
+# Legger bare en ekstra verdi u environment
+```{r}
+x = 5
+```
+
+# Lagre data
+```{r}
+save(excelssb, x, file = "my-first-data.RData")
+```
+
+# Slett men Få tilbae
+ls() i consol er det du har lagd/kombinert selv.
+Ved å trykke in rm(list/navnene på det som er i environment typ her er det excelssb og x) = ls()). Her er koden igjen bare mer rett utifra det eg har skriv først ls() så skriver du rm(list = ls()) i consol vil det fjerne alt i environment. Så vær sikker på når du bruker denne koden. 
+
+Så det en kan gjør er å trykke denne koden inn for å få alt tilbake. Lignende opplegg der du sletter noe og det havne ri søppelpost, så tar du de tilbake i filen ved denne koden istedenfor å bare dra det inn på skjermen fra søppelpost.
+```{r}
+load(file = "my-first-data.RData")
+```
+
+
+For å legge den inn til excel gjør vi sånn som dette
+```{r}
+write_xlsx(
+  x = excelssb,
+  path = "excelssb.xlsx"
+)
+```
+
+Her er verdiene skilt med Komma (,) siden Norge har det som standard istedenfor andre land som har punktum (.).
+```{r}
+write_csv(excelssb, file = "excelssb,csv")
+```
+
+
+## SSB web API
+```{r}
+#| pagade.print: false
+ApiData(
+  "http://data.ssb.no/api/v0/en/table/10540",
+  returnMetaFrames = TRUE
+)
+```
+
+Greit å kjenne til, siden vi kan bruke den for å se hva som er tilgjengelig. Er bare siste del som blei endra fra MetaFrames til ApiQuery.
+```{r}
+#| pagade.print: false
+ApiData(
+  "http://data.ssb.no/api/v0/en/table/10540",
+  returnApiQuery = TRUE
+)
+```
+
+
+```{r}
+unemp99to02 <- ApiData12(
+  urlToData = "https://data.ssb.no/api/v0/en/table/10540/",
+  # or
+  # urlToData = "10540"
+  # Select all municipalities in Vest-Agder and Rogaland
+  Region = list(c("10*","11*")),
+  # Select two age groups
+  Alder = c("15-74", "15-29"),
+  # select 1999M01:2002M12
+  Tid = c(paste(
+    rep(1999:2002, each = 12), 
+    "M",
+    sprintf("%02d", 1:12), 
+    sep = "")
+    )
+  ) |> 
+  # convert from dataframe to tibble
+  as_tibble()
+```
+
+
+
 
