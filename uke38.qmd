@@ -167,4 +167,103 @@ ggplot er det som ligger i tidyverse.
 
 Noe som heter Latticce som er eldre en ggplott, men eldre enn det klasiske plot programet. Vises på side 32 i slidsene
 
-Ny slide. Transforming Data (chap. 5 r4ds).
+## Grei info: 
+
+Grei bok å ha på nett (gratis tilgang) for diagrammer og dvs: <https://ggplot2-book.org/individual-geoms.html>
+
+Denne er også grei: <https://socviz.co/>
+
+Denen viser veldig konkret og ulike måter å endre til hvordan det skal se ut: [https://clauswilke.com/dataviz/](#0)
+
+## Ny slide. Transforming Data (chap. 5 r4ds).
+
+Forklare hvordan vi manipulerer databilder. Læraren anbefaler oss å prøve dette i et quarto document sånn at vi har forklaringer og steg for oss selv.
+
+Hva går dette utpå:
+
+Det er en samling av verb som hjelper oss å manipulerer det vi skal finne ut av.
+
+filter() hjelper oss å bare ta ut det vi selv vil ha istedenfor å ha 1000 forskjellige datasett.
+
+arrange() handler mer om utseende, den sorterer med hensyn på en eller flere variabler. Endrer ikke på selve datasette men i hva rekkefølge de kommer i
+
+select() endrer på variablene. Den tar altså ut hva slags vi kan plukke ut som vi er interesert i
+
+mutate() bruker vi til å lage nye variabler (renames osv). Denne kommer vi til å bruke mye av
+
+transmute() beholder de nye variablene, ikke så viktig egentlig.
+
+rename() endrer navne på variabelen/ene.
+
+summarise() regner vi ut grupper, mens groupe_by() hjelper oss til å gruppere variabelen, typ (max, min, mean, media, sd etc).
+
+Vi skal burke og lære oss om "pipe". Pipe stammer fra Unix Shell programmering. Var ikke en del av R før, noen ville legge til pipes i R siden
+
+Her blir det trukket 10 randome antall normalfordelte tall, som går ut gjennom "mean", så ut til en ny som heter round, som tar det utifra 3 desimaltall (digits). Dette er hva vi kaller for function to function to function, kan vær litt slitende og vanskelig å skjønne hva som skjer og hvor du er i en kode.
+
+```{r}
+set.seed(1234)
+res_mean_rnorm_3dig <- paste("Result:", round(mean(rnorm(n = 10, mean = 0, sd = 1)), digits = 3), sep = "")
+res_mean_rnorm_3dig
+```
+
+Temporary variables
+
+Som kan vær litt slitende siden da kommer det opp i temp 1-3 osv
+
+```{r}
+set.seed(1234)
+tmp <- rnorm(n = 10, mean = 0, sd = 1)
+tmp1 <- mean(tmp)
+tmp2 <- round(tmp1, digits = 3)
+paste("Result:", tmp2, sep = "")
+```
+
+```{r}
+# ^t, object names that start with 't' 
+ls(pattern = "^t")
+```
+
+pipe karakter = %\>%
+
+Mens med Pipes kan vi først generere dataene, så teller vi de inn ved en større tegn i 2 % tegn. Da heller vi dataen inn i en pipe, som går videre til funkjsonen mean(), som regner gjennomsnitte (som gir oss et tall av de 10 normalfordelte tallene). Den vil dermed gå videre ned til round() som går fra 16 til 3 desimaltaller, så ned til siste som er paste() som limer tallene med rekst.
+
+Det eneste som kna vippe oss av, av og til, er at vi må huske ka som kommer inn i røret og hva som kommer ut.
+
+Jøvla forvirende med tekst, men bare forestil deg et rør (sylinder) der den øverste er mean() så round() så paste()
+
+viktig komando i econometri.
+
+ln funksjon. Dataene til regresjonen er andre argument, mens første er selve funksjonen. Eks Y vil ikke vises siden den allerede er i dataen, mens X og Z er det vi ser visuelt i regresjonsmodellen.
+
+Sån som her: paste("Result:", .)
+
+Her vises punktumet på slutten at arggumentet skal komme inn som nummer 2 og ikke inn som nummer 1.
+
+```{r}
+set.seed(1234)
+res_mean_rnorm_3dig_string <- 
+  rnorm(n = 10, mean = 0, sd = 1) %>%
+  mean() %>%
+  round(digits = 3) %>% 
+  # The dot '.' is to show where the content of the pipe should be put
+  paste("Result:", .)
+res_mean_rnorm_3dig_string
+```
+
+Husk å last ned: viewpipesteps for å vise svarene for hvert steg.
+
+rnorm(n = 10, mean = 0, sd = 1) %\>%
+
+mean() %\>%
+
+```{r}
+set.seed(1234)
+res_mean_rnorm_3dig_string <- 
+  rnorm(n = 10, mean = 0, sd = 1) %>%
+  mean() %>%
+  round(digits = 3) %>% 
+  # The dot '.' is to show where the content of the pipe should be put
+  paste("Result:", .)
+res_mean_rnorm_3dig_string
+```
