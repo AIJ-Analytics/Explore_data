@@ -1,0 +1,108 @@
+---
+title: "Uke 38"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(PxWebApiData)
+library(writexl)
+library(readxl)
+```
+
+## Uke 38
+
+#Dag 18.09.2025
+
+## Three Variables
+
+-   Kan gjøre det via et 3-d plot (ikke så sykt bruktbart)
+
+Har man en kontirnuerlig variabel, kan man bruke størrelse, fargemetning (hvor stor fargemetting en har), den tredje er å bruke farger. Men siden vi har en kontinuerlig variabel kan vi ikke ha forksjellige farger, men heller fra lysere til mørkere farge. Bruker man størrelse går de fra mindre til større eller motsatt (alt er mulig så lenge du manipulere koden). Dette gjør ggplot hvis du har en kontinuerlig variabel.
+
+Ved bruk av geom_text() kan man gi navn til de ulike dleene, f.esk bil navner til de ulike variablene, se side 25 av sliden til læraren.
+
+HOSTHOST: Læraren liker bedre størrelser enn farge, bare et sånt lite tips.
+
+-    En annen startegi er Facets, at de blir delt opp i grupper.
+
+Tatt en variabel og delt den i tre ulike grupper. Dette kalles for "faktor/kategori variabel". Det består av et sett av dummy variabler. Heldigvis så blir det autmatisert i R hvis du gjør det til en faktor, mens i et annet program måtte (Excel) man gjort det manuelt av flere dummy variabler.
+
+Facet_wrap (\~)
+
+Ved å legge til en mapping = aes(color = det du skal dele inn i vekt, typ det læraren skriver cut_number(wt, n = 3)),
+
+fekk ikke til å gjør det under, men skal prøve senere
+
+```{r}
+ggplot(
+  data = mtcars, 
+  mapping = aes(
+    x = hp, 
+    y = 1609.347/(2*qsec^2)
+    )
+  ) +
+  facet_wrap(~cut_number(wt, n =3)) +
+  geom_point(
+    aes(colour = cut_number(
+      wt, 
+      n = 3)
+      )
+    ) +
+  geom_smooth(
+    method = "lm", 
+    se = FALSE
+    )
+```
+
+Det går ant å gjør det via ggplot() delen, der du setter inn
+
+Man må legge inn et geom for å legge til alle punktene i en svak farge for at det skal være litt uklart men mulig å se hvor de ulike plotene er. Her ser vi delen der det står Labes, som gjør det til de ulike tonene. Dette hjelper leseren å forstå litt mer.
+
+Der du ser Geom_point ser du at fargen er byttet til svak grå.
+
+```{r}
+#new dataframe to use for the grey points
+hp_acc <- data.frame(
+  hp = mtcars$hp, 
+  acc = 1609.347/(2*mtcars$qsec^2)
+  )
+
+ggplot(
+  data = mtcars, 
+  mapping = aes(
+    x = hp,
+    y = 1609.347/(2*qsec^2))
+  ) +
+  geom_point(
+    data = hp_acc, 
+    mapping = aes(x = hp, y = acc), 
+    colour = "grey80"
+    ) +
+  facet_wrap(
+    ~cut_number(
+      wt, 
+      n =3 , 
+      labels = c("Light", "Medium", "Heavy")
+      )
+    ) +
+  geom_point(
+    mapping = aes(colour = cut_number(
+      wt, 
+      n = 3, 
+      labels = c("Light", "Medium", "Heavy")
+      )
+      ),
+    show.legend = FALSE
+    ) +
+  geom_smooth(
+    method = "lm", 
+    se = FALSE
+    ) +
+  labs(
+    y = "Mean acceleration (m/s^2)", 
+    colour = "Weight"
+    )
+```
