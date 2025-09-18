@@ -13,26 +13,23 @@ library(writexl)
 library(readxl)
 ```
 
-
 # Leser inn SSB data
+
 Hvis du ikke har lastet ned library(readxl) enda så gjør det, jeg har gjort det rett ovenfor får å gjør det enklere
+
 ```{r}
 excelssb <- read_excel("excelssb.xlsx")
 View(excelssb)
 ```
-
 
 ```{r}
 # eval: false
 view(excelssb)
 ```
 
-
-
 #Ny dag 05.09.2025
 
-Endre navn på excel tingene
-ved å bruke c() vil det comine ledd med hverandre fra første til siste som gjort her.
+Endre navn på excel tingene ved å bruke c() vil det comine ledd med hverandre fra første til siste som gjort her.
 
 ```{r}
 names(excelssb) <- c("knr", "alder", "mnd", "arbl")
@@ -47,26 +44,29 @@ excelssb <- fill(excelssb, knr, alder, .direction = "down")
 Ved å ta rm(et eller annet navn som du har lagd typ ovenfor er det excelssb, men før det hadde du typ tmp fordi du ville ha et annet navn)i consol og tryker enter, vil den bli sletta i systemet når du har gitt det et annet navn som her ble det excelssb.
 
 # Legger bare en ekstra verdi u environment
+
 ```{r}
 x = 5
 ```
 
 # Lagre data
+
 ```{r}
 save(excelssb, x, file = "my-first-data.RData")
 ```
 
 # Slett men Få tilbae
-ls() i consol er det du har lagd/kombinert selv.
-Ved å trykke in rm(list/navnene på det som er i environment typ her er det excelssb og x) = ls()). Her er koden igjen bare mer rett utifra det eg har skriv først ls() så skriver du rm(list = ls()) i consol vil det fjerne alt i environment. Så vær sikker på når du bruker denne koden. 
+
+ls() i consol er det du har lagd/kombinert selv. Ved å trykke in rm(list/navnene på det som er i environment typ her er det excelssb og x) = ls()). Her er koden igjen bare mer rett utifra det eg har skriv først ls() så skriver du rm(list = ls()) i consol vil det fjerne alt i environment. Så vær sikker på når du bruker denne koden.
 
 Så det en kan gjør er å trykke denne koden inn for å få alt tilbake. Lignende opplegg der du sletter noe og det havne ri søppelpost, så tar du de tilbake i filen ved denne koden istedenfor å bare dra det inn på skjermen fra søppelpost.
+
 ```{r}
 load(file = "my-first-data.RData")
 ```
 
-
 For å legge den inn til excel gjør vi sånn som dette
+
 ```{r}
 write_xlsx(
   x = excelssb,
@@ -75,12 +75,13 @@ write_xlsx(
 ```
 
 Her er verdiene skilt med Komma (,) siden Norge har det som standard istedenfor andre land som har punktum (.).
+
 ```{r}
 write_csv(excelssb, file = "excelssb,csv")
 ```
 
-
 ## SSB web API
+
 ```{r}
 #| pagade.print: false
 ApiData(
@@ -90,6 +91,7 @@ ApiData(
 ```
 
 Greit å kjenne til, siden vi kan bruke den for å se hva som er tilgjengelig. Er bare siste del som blei endra fra MetaFrames til ApiQuery.
+
 ```{r}
 #| pagade.print: false
 ApiData(
@@ -97,7 +99,6 @@ ApiData(
   returnApiQuery = TRUE
 )
 ```
-
 
 ```{r}
 unemp99to02 <- ApiData12(
@@ -120,6 +121,8 @@ unemp99to02 <- ApiData12(
   as_tibble()
 ```
 
-
 # Branch (Main)
+
 Hvis du har en Main og skal bruke en annen branch, og du vil gå tilbake til mainen din, så må du code denne koden her i Terminal (git merge SsbApi) ikke bruk SsbApi fordi det er hva eg kalte der eg lager brancher.
+
+## UKE 38
