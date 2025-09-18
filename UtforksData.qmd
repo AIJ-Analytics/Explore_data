@@ -121,5 +121,5 @@ unemp99to02 <- ApiData12(
 ```
 
 
-
-
+# Branch (Main)
+Hvis du har en Main og skal bruke en annen branch, og du vil gå tilbake til mainen din, så må du code denne koden her i Terminal (git merge SsbApi) ikke bruk SsbApi fordi det er hva eg kalte der eg lager brancher.
