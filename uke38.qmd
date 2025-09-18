@@ -183,21 +183,21 @@ Hva går dette utpå:
 
 Det er en samling av verb som hjelper oss å manipulerer det vi skal finne ut av.
 
-filter() hjelper oss å bare ta ut det vi selv vil ha istedenfor å ha 1000 forskjellige datasett.
+**filter()** hjelper oss å bare ta ut det vi selv vil ha istedenfor å ha 1000 forskjellige datasett.
 
-arrange() handler mer om utseende, den sorterer med hensyn på en eller flere variabler. Endrer ikke på selve datasette men i hva rekkefølge de kommer i
+**arrange()** handler mer om utseende, den sorterer med hensyn på en eller flere variabler. Endrer ikke på selve datasette men i hva rekkefølge de kommer i
 
-select() endrer på variablene. Den tar altså ut hva slags vi kan plukke ut som vi er interesert i
+**select()** endrer på variablene. Den tar altså ut hva slags vi kan plukke ut som vi er interesert i
 
-mutate() bruker vi til å lage nye variabler (renames osv). Denne kommer vi til å bruke mye av
+**mutate()** bruker vi til å lage nye variabler (renames osv). Denne kommer vi til å bruke mye av
 
-transmute() beholder de nye variablene, ikke så viktig egentlig.
+*transmute()* beholder de nye variablene, ikke så viktig egentlig.
 
-rename() endrer navne på variabelen/ene.
+*rename()* endrer navne på variabelen/ene.
 
-summarise() regner vi ut grupper, mens groupe_by() hjelper oss til å gruppere variabelen, typ (max, min, mean, media, sd etc).
+**summarise()** regner vi ut grupper, mens groupe_by() hjelper oss til å gruppere variabelen, typ (max, min, mean, media, sd etc).
 
-Vi skal burke og lære oss om "pipe". Pipe stammer fra Unix Shell programmering. Var ikke en del av R før, noen ville legge til pipes i R siden
+## Function to Function to Function
 
 Her blir det trukket 10 randome antall normalfordelte tall, som går ut gjennom "mean", så ut til en ny som heter round, som tar det utifra 3 desimaltall (digits). Dette er hva vi kaller for function to function to function, kan vær litt slitende og vanskelig å skjønne hva som skjer og hvor du er i en kode.
 
@@ -207,9 +207,9 @@ res_mean_rnorm_3dig <- paste("Result:", round(mean(rnorm(n = 10, mean = 0, sd = 
 res_mean_rnorm_3dig
 ```
 
-Temporary variables
+## Temporary variables
 
-Som kan vær litt slitende siden da kommer det opp i temp 1-3 osv
+## Som kan vær litt slitende siden da kommer det opp i temp 1-3 osv
 
 ```{r}
 set.seed(1234)
@@ -224,15 +224,19 @@ paste("Result:", tmp2, sep = "")
 ls(pattern = "^t")
 ```
 
-pipe karakter = %\>%
+## Pipe
+
+Vi skal burke og lære oss om "pipe". Pipe stammer fra Unix Shell programmering. Var ikke en del av R før, noen ville legge til pipes i R siden.
+
+pipe symbol/karakter = %\>%
 
 Mens med Pipes kan vi først generere dataene, så teller vi de inn ved en større tegn i 2 % tegn. Da heller vi dataen inn i en pipe, som går videre til funkjsonen mean(), som regner gjennomsnitte (som gir oss et tall av de 10 normalfordelte tallene). Den vil dermed gå videre ned til round() som går fra 16 til 3 desimaltaller, så ned til siste som er paste() som limer tallene med rekst.
 
 Det eneste som kna vippe oss av, av og til, er at vi må huske ka som kommer inn i røret og hva som kommer ut.
 
-Jøvla forvirende med tekst, men bare forestil deg et rør (sylinder) der den øverste er mean() så round() så paste()
+Jævla forvirende med tekst, men bare forestil deg et rør (sylinder) der den øverste er mean() så round() så paste()
 
-viktig komando i econometri.
+Viktig komando i econometri.
 
 ln funksjon. Dataene til regresjonen er andre argument, mens første er selve funksjonen. Eks Y vil ikke vises siden den allerede er i dataen, mens X og Z er det vi ser visuelt i regresjonsmodellen.
 
@@ -267,3 +271,21 @@ res_mean_rnorm_3dig_string <-
   paste("Result:", .)
 res_mean_rnorm_3dig_string
 ```
+
+Det som er greit med pipe er at det som går som output fra en funksjon går til en input for neste funksjon. Alt om tidyverse skal være designa for å gå hand i hand med pipes metoden.
+
+## nycflights13
+
+Nå skal vi bruke nycflight13 å renke litt ut her og der.
+
+```{r}
+library(nycflights13)
+```
+
+```{r}
+flights %>% as_tibble()
+```
+
+Her ser du at 336,776 = n (antall)
+
+Ved bruk av ?flights i consol får vi opp på help til høyre hjørnet hva de ulike variablene betyr. Vi ser at sched_de er når flyet gikk. Den første ser vi gikk 5:15, og til høyre for den viser den at den er 2 min forsinket, osv.
