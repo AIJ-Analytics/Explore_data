@@ -6,10 +6,12 @@ editor: visual
 
 ```{r}
 library(tidyverse)
+library()
 library(readxl)
 library(PxWebApiData)
 library(writexl)
 library(readxl)
+library(reshape2)
 ```
 
 ## Uke 38
@@ -22,17 +24,17 @@ library(readxl)
 
 Har man en kontirnuerlig variabel, kan man bruke størrelse, fargemetning (hvor stor fargemetting en har), den tredje er å bruke farger. Men siden vi har en kontinuerlig variabel kan vi ikke ha forksjellige farger, men heller fra lysere til mørkere farge. Bruker man størrelse går de fra mindre til større eller motsatt (alt er mulig så lenge du manipulere koden). Dette gjør ggplot hvis du har en kontinuerlig variabel.
 
-Ved bruk av geom_text() kan man gi navn til de ulike dleene, f.esk bil navner til de ulike variablene, se side 25 av sliden til læraren.
+Ved bruk av geom_text() kan man gi navn til de ulike delene, f.eks, bil navn til de ulike variablene, se side 25 av slidse til læraren.
 
 HOSTHOST: Læraren liker bedre størrelser enn farge, bare et sånt lite tips.
 
--    En annen startegi er Facets, at de blir delt opp i grupper.
+-   En annen startegi er Facets, at de blir delt opp i grupper.
 
-Tatt en variabel og delt den i tre ulike grupper. Dette kalles for "faktor/kategori variabel". Det består av et sett av dummy variabler. Heldigvis så blir det autmatisert i R hvis du gjør det til en faktor, mens i et annet program måtte (Excel) man gjort det manuelt av flere dummy variabler.
+Tatt en variabel og delt den i tre ulike grupper. Dette kalles for "faktor/kategori variabel". Dette består av et sett av dummy variabler. Heldigvis så blir det autmatisert i R-studio hvis du gjør det til en faktor, mens i et annet program (Excel) måtte man gjort det manuelt (flere dummy variabler).
 
-Facet_wrap (\~)
+Facet_wrap (\~) "fekk ikke sjangs til å følge med eller skrive om dette av læraren"
 
-Ved å legge til en mapping = aes(color = det du skal dele inn i vekt, typ det læraren skriver cut_number(wt, n = 3)),
+Ved å legge til en mapping = aes(color = det du skal dele inn i vekt, typ det læraren skreiv cut_number(wt, n = 3)),
 
 fekk ikke til å gjør det under, men skal prøve senere
 
@@ -106,3 +108,63 @@ ggplot(
     colour = "Weight"
     )
 ```
+
+Stack Overflow er en nettside der du kan finne svar på typiske R problematiske spørsmål. Veldig bra og vi kommer til å bruke det framøve når læraren ikke svarer på det.
+
+## To Facet Variabler
+
+Vi kan og ha Facet for to variabler, ikke bare en.
+
+Da legger vi rekke variabelen før
+
+Det som er endret er istedenfor facet_wrap, har han brukt facet_grid.
+
+Det som kommer før krøllen (\~) er det som kommer på rekkene og det osm kommer etter er det som kommer på kollonene. Da snakker eg om denne koden:
+
+factor(cyl)\~cut_number( wt, n = 3 , labels = c("Light", "Medium", "Heavy"))
+
+```{r}
+ggplot(
+  data = mtcars, 
+  mapping = aes(x = hp, y = 1609.347/(2*qsec^2))
+  ) +
+  
+  geom_point(
+    data = hp_acc, 
+    mapping = aes(x = hp, y = acc), 
+    colour = "grey80"
+    ) +
+    facet_grid(
+    factor(cyl)~cut_number(
+      wt, 
+      n = 3 , 
+      labels = c("Light", "Medium", "Heavy"))
+    ) +
+  
+  geom_point(
+    mapping = aes(
+      colour = cut_number(
+        wt, 
+        n = 3, 
+        labels = c("Light", "Medium", "Heavy")
+        )
+      ),
+    show.legend = FALSE
+    ) +
+  
+  geom_smooth(
+    method = "lm", 
+    se = FALSE
+    ) +
+  
+  labs(
+    y = "Mean acceleration", 
+    colour = "Weight"
+    )
+```
+
+ggplot er det som ligger i tidyverse.
+
+Noe som heter Latticce som er eldre en ggplott, men eldre enn det klasiske plot programet. Vises på side 32 i slidsene
+
+Ny slide. Transforming Data (chap. 5 r4ds).
