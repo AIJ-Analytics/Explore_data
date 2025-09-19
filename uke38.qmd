@@ -394,3 +394,29 @@ Januar.
 ```
 
 Ved å legge til desc(dep_time) vil den begynner fra seinest til tidligst.
+
+```{r}
+#| paged.print: False
+  flights |> 
+  filter(
+  month == 1, 
+  day %in% c(1, 15, 30)) |> 
+ slice_sample(n = 10) |> 
+    arrange(desc(day), desc(dep_time))
+```
+
+Dette er et tilfeldig utvalg av 10 verdier som vil være forksjelig for hver gang
+
+```{r}
+#| paged.print: False
+  set.seed(1111)
+  flights |> 
+  filter(
+  month == 1, 
+  day %in% c(1, 15, 30)) |> 
+ slice_sample(n = 10) |> 
+    arrange(desc(day), desc(dep_time))
+```
+
+Ved å bruke set.seed() vil det gi oss det samme svaret om igjen utifra utvalget.
+Du må bare endre n = et tall for å endre resultatet.
