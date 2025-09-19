@@ -420,3 +420,21 @@ Dette er et tilfeldig utvalg av 10 verdier som vil være forksjelig for hver gan
 
 Ved å bruke set.seed() vil det gi oss det samme svaret om igjen utifra utvalget.
 Du må bare endre n = et tall for å endre resultatet.
+
+Operators /opperatorer hjelper oss med at når vi skal se om noe er likt.
+Da skriver vi bare eks, 2 == 2 så får du opp TRUE eller FALSE, i dette tilfelle vil det være TRUE.
+
+```{r}
+2 == 2
+
+```
+
+-   For å se om to ting er lik hverandre kan vi bruke near, i tilfelle ting er numerisk tilnærmet eller lik noe (at du får feil utslag (TRUE/FALSE) pågrunn av desimaltall.
+    Husk å last ned tidyverse for at den skal funke.
+
+-   ! (utroppstegn) kan og snu en verdi fraTRUE til FALSE, og motsatt.
+    eks:
+
+    ```{r}
+    !(2L == 2L)
+    ```
