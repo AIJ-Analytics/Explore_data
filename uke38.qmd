@@ -22,7 +22,10 @@ library(reshape2)
 
 -   Kan gjøre det via et 3-d plot (ikke så sykt bruktbart)
 
-Har man en kontirnuerlig variabel, kan man bruke størrelse, fargemetning (hvor stor fargemetting en har), den tredje er å bruke farger. Men siden vi har en kontinuerlig variabel kan vi ikke ha forksjellige farger, men heller fra lysere til mørkere farge. Bruker man størrelse går de fra mindre til større eller motsatt (alt er mulig så lenge du manipulere koden). Dette gjør ggplot hvis du har en kontinuerlig variabel.
+Har man en kontirnuerlig variabel, kan man bruke størrelse, fargemetning (hvor stor fargemetting en har), den tredje er å bruke farger.
+Men siden vi har en kontinuerlig variabel kan vi ikke ha forksjellige farger, men heller fra lysere til mørkere farge.
+Bruker man størrelse går de fra mindre til større eller motsatt (alt er mulig så lenge du manipulere koden).
+Dette gjør ggplot hvis du har en kontinuerlig variabel.
 
 Ved bruk av geom_text() kan man gi navn til de ulike delene, f.eks, bil navn til de ulike variablene, se side 25 av slidse til læraren.
 
@@ -30,7 +33,10 @@ HOSTHOST: Læraren liker bedre størrelser enn farge, bare et sånt lite tips.
 
 -   En annen startegi er Facets, at de blir delt opp i grupper.
 
-Tatt en variabel og delt den i tre ulike grupper. Dette kalles for "faktor/kategori variabel". Dette består av et sett av dummy variabler. Heldigvis så blir det autmatisert i R-studio hvis du gjør det til en faktor, mens i et annet program (Excel) måtte man gjort det manuelt (flere dummy variabler).
+Tatt en variabel og delt den i tre ulike grupper.
+Dette kalles for "faktor/kategori variabel".
+Dette består av et sett av dummy variabler.
+Heldigvis så blir det autmatisert i R-studio hvis du gjør det til en faktor, mens i et annet program (Excel) måtte man gjort det manuelt (flere dummy variabler).
 
 Facet_wrap (\~) "fekk ikke sjangs til å følge med eller skrive om dette av læraren"
 
@@ -61,7 +67,9 @@ ggplot(
 
 Det går ant å gjør det via ggplot() delen, der du setter inn
 
-Man må legge inn et geom for å legge til alle punktene i en svak farge for at det skal være litt uklart men mulig å se hvor de ulike plotene er. Her ser vi delen der det står Labes, som gjør det til de ulike tonene. Dette hjelper leseren å forstå litt mer.
+Man må legge inn et geom for å legge til alle punktene i en svak farge for at det skal være litt uklart men mulig å se hvor de ulike plotene er.
+Her ser vi delen der det står Labes, som gjør det til de ulike tonene.
+Dette hjelper leseren å forstå litt mer.
 
 Der du ser Geom_point ser du at fargen er byttet til svak grå.
 
@@ -109,7 +117,8 @@ ggplot(
     )
 ```
 
-Stack Overflow er en nettside der du kan finne svar på typiske R problematiske spørsmål. Veldig bra og vi kommer til å bruke det framøve når læraren ikke svarer på det.
+Stack Overflow er en nettside der du kan finne svar på typiske R problematiske spørsmål.
+Veldig bra og vi kommer til å bruke det framøve når læraren ikke svarer på det.
 
 ## To Facet Variabler
 
@@ -119,7 +128,8 @@ Da legger vi rekke variabelen før
 
 Det som er endret er istedenfor facet_wrap, har han brukt facet_grid.
 
-Det som kommer før krøllen (\~) er det som kommer på rekkene og det osm kommer etter er det som kommer på kollonene. Da snakker eg om denne koden:
+Det som kommer før krøllen (\~) er det som kommer på rekkene og det osm kommer etter er det som kommer på kollonene.
+Da snakker eg om denne koden:
 
 factor(cyl)\~cut_number( wt, n = 3 , labels = c("Light", "Medium", "Heavy"))
 
@@ -165,9 +175,10 @@ ggplot(
 
 ggplot er det som ligger i tidyverse.
 
-Noe som heter Latticce som er eldre en ggplott, men eldre enn det klasiske plot programet. Vises på side 32 i slidsene
+Noe som heter Latticce som er eldre en ggplott, men eldre enn det klasiske plot programet.
+Vises på side 32 i slidsene
 
-## Grei info: 
+## Grei info:
 
 Grei bok å ha på nett (gratis tilgang) for diagrammer og dvs: <https://ggplot2-book.org/individual-geoms.html>
 
@@ -177,7 +188,8 @@ Denen viser veldig konkret og ulike måter å endre til hvordan det skal se ut: 
 
 ## Ny slide. Transforming Data (chap. 5 r4ds).
 
-Forklare hvordan vi manipulerer databilder. Læraren anbefaler oss å prøve dette i et quarto document sånn at vi har forklaringer og steg for oss selv.
+Forklare hvordan vi manipulerer databilder.
+Læraren anbefaler oss å prøve dette i et quarto document sånn at vi har forklaringer og steg for oss selv.
 
 Hva går dette utpå:
 
@@ -185,11 +197,14 @@ Det er en samling av verb som hjelper oss å manipulerer det vi skal finne ut av
 
 **filter()** hjelper oss å bare ta ut det vi selv vil ha istedenfor å ha 1000 forskjellige datasett.
 
-**arrange()** handler mer om utseende, den sorterer med hensyn på en eller flere variabler. Endrer ikke på selve datasette men i hva rekkefølge de kommer i
+**arrange()** handler mer om utseende, den sorterer med hensyn på en eller flere variabler.
+Endrer ikke på selve datasette men i hva rekkefølge de kommer i
 
-**select()** endrer på variablene. Den tar altså ut hva slags vi kan plukke ut som vi er interesert i
+**select()** endrer på variablene.
+Den tar altså ut hva slags vi kan plukke ut som vi er interesert i
 
-**mutate()** bruker vi til å lage nye variabler (renames osv). Denne kommer vi til å bruke mye av
+**mutate()** bruker vi til å lage nye variabler (renames osv).
+Denne kommer vi til å bruke mye av
 
 *transmute()* beholder de nye variablene, ikke så viktig egentlig.
 
@@ -199,7 +214,8 @@ Det er en samling av verb som hjelper oss å manipulerer det vi skal finne ut av
 
 ## Function to Function to Function
 
-Her blir det trukket 10 randome antall normalfordelte tall, som går ut gjennom "mean", så ut til en ny som heter round, som tar det utifra 3 desimaltall (digits). Dette er hva vi kaller for function to function to function, kan vær litt slitende og vanskelig å skjønne hva som skjer og hvor du er i en kode.
+Her blir det trukket 10 randome antall normalfordelte tall, som går ut gjennom "mean", så ut til en ny som heter round, som tar det utifra 3 desimaltall (digits).
+Dette er hva vi kaller for function to function to function, kan vær litt slitende og vanskelig å skjønne hva som skjer og hvor du er i en kode.
 
 ```{r}
 set.seed(1234)
@@ -226,11 +242,15 @@ ls(pattern = "^t")
 
 ## Pipe
 
-Vi skal burke og lære oss om "pipe". Pipe stammer fra Unix Shell programmering. Var ikke en del av R før, noen ville legge til pipes i R siden.
+Vi skal burke og lære oss om "pipe".
+Pipe stammer fra Unix Shell programmering.
+Var ikke en del av R før, noen ville legge til pipes i R siden.
 
 pipe symbol/karakter = %\>%
 
-Mens med Pipes kan vi først generere dataene, så teller vi de inn ved en større tegn i 2 % tegn. Da heller vi dataen inn i en pipe, som går videre til funkjsonen mean(), som regner gjennomsnitte (som gir oss et tall av de 10 normalfordelte tallene). Den vil dermed gå videre ned til round() som går fra 16 til 3 desimaltaller, så ned til siste som er paste() som limer tallene med rekst.
+Mens med Pipes kan vi først generere dataene, så teller vi de inn ved en større tegn i 2 % tegn.
+Da heller vi dataen inn i en pipe, som går videre til funkjsonen mean(), som regner gjennomsnitte (som gir oss et tall av de 10 normalfordelte tallene).
+Den vil dermed gå videre ned til round() som går fra 16 til 3 desimaltaller, så ned til siste som er paste() som limer tallene med rekst.
 
 Det eneste som kna vippe oss av, av og til, er at vi må huske ka som kommer inn i røret og hva som kommer ut.
 
@@ -238,7 +258,9 @@ Jævla forvirende med tekst, men bare forestil deg et rør (sylinder) der den ø
 
 Viktig komando i econometri.
 
-ln funksjon. Dataene til regresjonen er andre argument, mens første er selve funksjonen. Eks Y vil ikke vises siden den allerede er i dataen, mens X og Z er det vi ser visuelt i regresjonsmodellen.
+ln funksjon.
+Dataene til regresjonen er andre argument, mens første er selve funksjonen.
+Eks Y vil ikke vises siden den allerede er i dataen, mens X og Z er det vi ser visuelt i regresjonsmodellen.
 
 Sån som her: paste("Result:", .)
 
@@ -272,7 +294,8 @@ res_mean_rnorm_3dig_string <-
 res_mean_rnorm_3dig_string
 ```
 
-Det som er greit med pipe er at det som går som output fra en funksjon går til en input for neste funksjon. Alt om tidyverse skal være designa for å gå hand i hand med pipes metoden.
+Det som er greit med pipe er at det som går som output fra en funksjon går til en input for neste funksjon.
+Alt om tidyverse skal være designa for å gå hand i hand med pipes metoden.
 
 ## nycflights13
 
@@ -288,4 +311,86 @@ flights %>% as_tibble()
 
 Her ser du at 336,776 = n (antall)
 
-Ved bruk av ?flights i consol får vi opp på help til høyre hjørnet hva de ulike variablene betyr. Vi ser at sched_de er når flyet gikk. Den første ser vi gikk 5:15, og til høyre for den viser den at den er 2 min forsinket, osv.
+Ved bruk av ?f
+lights i consol får vi opp på help til høyre hjørnet hva de ulike variablene betyr.
+Vi ser at sched_de er når flyet gikk.
+Den første ser vi gikk 5:15, og til høyre for den viser den at den er 2 min forsinket, osv.
+
+## 10.09.2025
+
+Nå begynner vi på New York Flights på de tre ulike flyplassene i New York
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+```
+
+```{r}
+print(
+  head(flights, n = 5),
+  width = 70
+  )
+```
+
+Første vi skal gjør er å bruke filterings kommandoen filter().
+Her har vi gått utifra at month 1 er Januar.
+
+```{r}
+print(
+  filter(flights, month == 1, day == 1),
+  n = 5, 
+  width = 70
+)
+```
+
+Fant ut at hvis du går på tools, globale option, code, editing så markerer du use native pipe operator \|\>.
+Da kan du trykke ctrl, shit og M, så får du opp dette symbolet \|\> som betyr: \|\> = %\>% (pipe).
+
+```{r}
+#| paged.print: False
+   flights |> 
+     filter(month == 1, day == 1) |> 
+     print(n = 5)
+```
+
+```{r}
+#| paged.print: False
+  flights |> 
+  filter(
+  month == 1, 
+  day %in% c(1, 15, 30)
+  ) |> 
+    tail(n = 7) |> 
+  print(
+    width = 60
+  )
+```
+
+Tail er halen som viser oss at han skal hente ut de 7 siste.
+
+```{r}
+#| paged.print: False
+  flights |> 
+  filter(
+  month == 1, 
+  day %in% c(1, 15, 30)
+  ) |> 
+    arrange(desc(day))
+```
+
+Det som skjer på slutten her der vi tar arrange(desc(day)) er at den begynner på 30, så 15 så 1, altså den starter i motsatt ende.
+Der det står 3 på dep_time er at den letter (flyr) 00:03 30.
+Januar.
+2013.
+
+```{r}
+#| paged.print: False
+  flights |> 
+  filter(
+  month == 1, 
+  day %in% c(1, 15, 30)
+  ) |> 
+    arrange(desc(day), desc(dep_time))
+```
+
+Ved å legge til desc(dep_time) vil den begynner fra seinest til tidligst.
