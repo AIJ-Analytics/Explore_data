@@ -429,12 +429,174 @@ Da skriver vi bare eks, 2 == 2 så får du opp TRUE eller FALSE, i dette tilfell
 
 ```
 
--   For å se om to ting er lik hverandre kan vi bruke near, i tilfelle ting er numerisk tilnærmet eller lik noe (at du får feil utslag (TRUE/FALSE) pågrunn av desimaltall.
+-   For å se om to ting er lik hverandre kan vi bruke **near()**, i tilfelle ting er numerisk tilnærmet eller lik noe (at du får feil utslag (TRUE/FALSE) pågrunn av desimaltall.
     Husk å last ned tidyverse for at den skal funke.
 
--   ! (utroppstegn) kan og snu en verdi fraTRUE til FALSE, og motsatt.
+-   ! (utroppstegn) kan og snu en verdi fra TRUE til FALSE, og motsatt.
     eks:
 
     ```{r}
     !(2L == 2L)
     ```
+
+## Uke 39
+
+For å finne flyene fra April og Septemeber ilag, er det mulig å enten skrive **nrow()** eller **count()**.
+Begge gir samme svar
+
+```{r}
+#| paged.print: False
+  flights %>%  
+  filter(month %in% c(4, 9)) %>%
+  nrow()
+```
+
+```{r}
+#| paged.print: False
+  flights %>%  
+  filter(month %in% c(4, 9)) %>%
+    count()
+```
+
+Hvis du bruker **Og** tegnet **(en vannrett linje)** så kan du finne det samme svaret, bare at du ser det litt enklere.
+
+```{r}
+#| paged.print: False
+  flights %>%  
+  filter(month == 4 | month == 9) %>%
+    count()
+```
+
+-   Finn ut hvor mange fly det var fra april til september.
+
+    Det vi må gjør er å grupere de i gruppe fra 4 til 9, derifra må vi grupere det til variabelen vi vil ha month(), så må vi summere antallene ved å kalle antall = n().
+    Da gjør vi sånn at n bli definert som antall.
+
+```{r}
+#| paged.print: False
+  flights |>  
+  filter(month %in% 4:9) |> 
+    group_by(month) |> 
+    summarise(antall = n())
+```
+
+-   Hvor mange fly var det toalt i de to ulike månede utifra de to første dagene.
+
+```{r}
+#| paged.print: False
+  flights |>  
+    filter(day %in% c(1,2)) |> 
+    group_by(month, origin) |> 
+    summarise(antall = n())
+```
+
+-   Definer alle flyvininger som skjedde første i hver måned
+
+```{r}
+#| paged.print: False
+  flights |>  
+    filter(day %in% c(1)) |> 
+    summarise(antall = n())
+```
+
+-   Gjør det samme men for hver flyplass
+
+```{r}
+#| paged.print: False
+  flights |>  
+    filter(day %in% c(1)) |> 
+    group_by(origin) |> 
+    summarise(antall = n())
+```
+
+Ved å ta inn koden prin(n = 60) vil du få ut for hver måned, hvis du trekker inn month og i group_by
+
+```{r}
+#| paged.print: False
+  flights |>  
+    filter(day %in% c(1)) |> 
+    group_by(month, origin) |> 
+    summarise(antall = n()) |> 
+  print(n = 60)
+```
+
+-   hvor mange fly var det siste dag for hver måned for hver flyplass
+
+```{r}
+#| paged.print: False
+  flights |>  
+    group_by(month, origin) |> 
+    filter(day == max(day)) |> 
+    summarise(antall = n()) |> 
+  print(n = 40)
+```
+
+For å sjekke om dette er rett er å velge ut noen av de typ Januar, og se om de har samma svar, siden siste dag i måneden varierer fra månede og månede og skuddår.
+Siden vi valgte Januar så vet vi at den har 31 dager.
+
+```{r}
+#| paged.print: False
+  flights |>  
+    filter(month == 1 & day == 31) |> 
+    group_by(origin) |> 
+    summarise(antall = n())
+```
+
+-   Hvor mange fly var det i 2013 som hadde en forsinkelse større eller lik 15 minnutter, men mindre enn 30 min. arr_delay = forsinkelse
+
+```{r}
+#| paged.print: False
+  flights |>  
+    filter(arr_delay >= 15 & arr_delay < 30) |> 
+    count()
+```
+
+Hvor mange fly var forsinket
+
+```{r}
+#| paged.print: False
+flights |>  
+    filter(arr_delay >= 15 & arr_delay < 30) |>
+    count()
+```
+
+Hvor mange fly var forsinket i % (svaret er 8,11%)
+
+```{r}
+#| paged.print: False
+ delays <- flights |>  
+    filter(arr_delay >= 15 & arr_delay < 30) |>
+    count() |> 
+    pull()
+    
+ round(100 * delays/nrow(flights), 2)
+```
+
+Hvordan var dette på hver flyplass
+
+```{r}
+#| paged.print: False
+flights |>  
+    filter(arr_delay >= 15 & arr_delay < 30) |>
+   group_by(origin) |> 
+    count()
+
+```
+
+I porsent
+
+```{r}
+#| paged.print: False
+ delays <- flights |>  
+    filter(arr_delay >= 15 & arr_delay < 30) |>
+   group_by(origin) |> 
+    count() |> 
+    pull()
+ 
+ flights_orig <- flights|> 
+   group_by(origin) |> 
+   summarise(antall = n ()) |> 
+   pull()
+ 
+ round(100 * delays/flights_orig, 2)
+```
