@@ -57,9 +57,13 @@ save(excelssb, x, file = "my-first-data.RData")
 
 # Slett men Få tilbae
 
-ls() i consol er det du har lagd/kombinert selv. Ved å trykke in rm(list/navnene på det som er i environment typ her er det excelssb og x) = ls()). Her er koden igjen bare mer rett utifra det eg har skriv først ls() så skriver du rm(list = ls()) i consol vil det fjerne alt i environment. Så vær sikker på når du bruker denne koden.
+ls() i consol er det du har lagd/kombinert selv.
+Ved å trykke in rm(list/navnene på det som er i environment typ her er det excelssb og x) = ls()).
+Her er koden igjen bare mer rett utifra det eg har skriv først ls() så skriver du rm(list = ls()) i consol vil det fjerne alt i environment.
+Så vær sikker på når du bruker denne koden.
 
-Så det en kan gjør er å trykke denne koden inn for å få alt tilbake. Lignende opplegg der du sletter noe og det havne ri søppelpost, så tar du de tilbake i filen ved denne koden istedenfor å bare dra det inn på skjermen fra søppelpost.
+Så det en kan gjør er å trykke denne koden inn for å få alt tilbake.
+Lignende opplegg der du sletter noe og det havne ri søppelpost, så tar du de tilbake i filen ved denne koden istedenfor å bare dra det inn på skjermen fra søppelpost.
 
 ```{r}
 load(file = "my-first-data.RData")
@@ -90,7 +94,8 @@ ApiData(
 )
 ```
 
-Greit å kjenne til, siden vi kan bruke den for å se hva som er tilgjengelig. Er bare siste del som blei endra fra MetaFrames til ApiQuery.
+Greit å kjenne til, siden vi kan bruke den for å se hva som er tilgjengelig.
+Er bare siste del som blei endra fra MetaFrames til ApiQuery.
 
 ```{r}
 #| pagade.print: false
