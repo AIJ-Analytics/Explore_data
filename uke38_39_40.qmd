@@ -689,12 +689,20 @@ Svar som vektor med et element:
 Det som står onda her er feil
 
 ```{r}
-(my_vars <- flights |> 
+names(my_vars)
+```
+
+```{r}
+(my_vars <- my_vars |> 
   filter(month == 5) |> 
   select(day, month, year, arival_delay) |>
-  summarise(median_arival_delay = median(arrival_delay, na.rm = TRUE)) |> 
+  summarise(median_arival_delay = median(arival_delay, na.rm = TRUE)) |> 
   pull()
   )
+```
+
+```{r}
+my_vars
 ```
 
 Mutate prøver å regne 2 nye variabler i den eksisterende.
