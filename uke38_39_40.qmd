@@ -708,13 +708,36 @@ my_vars
 Mutate prøver å regne 2 nye variabler i den eksisterende.
 
 ```{r}
-my_new_data <- flights %>%
-  select(year:day, ends_with("delay"), distance, air_time) %>%
+my_new_data <- flights |> 
+  select(year:day, ends_with("delay"), distance, air_time |> 
   mutate(
     gain = dep_delay - arr_delay,
     speed = (distance/air_time) * 60
-    ) %>%
-  select(year:day, gain, everything()) %>%
-  arrange(gain)
+    ) |> 
+  select(year:day, gain, everything()) |> 
+  arrange(gain) |> 
 head(my_new_data, n = 5) 
+```
+
+Her rekner vi ut medianen for forsinkelse fra februar til september.
+
+```{r}
+flights |> 
+  filter(month %in% c(2,9)) |> 
+  group_by(month, day) |> 
+  summarise(delay = median(arr_delay, na.rm = TRUE)) |> 
+  print(n = 60)
+```
+
+\
+Denne er feil, men Arnestein gjorde den i klassen.
+
+```{r}
+flights |> 
+  filter(month %in% c(2,9)) |> 
+  group_by(month, day) |> 
+  summarise(
+      mean_delay = mean(arr_delay, na.rm = TRUE)
+      sd_delay = sd(arr_delay, na.rm = TRUE)) |> 
+  print(n = 60)
 ```
