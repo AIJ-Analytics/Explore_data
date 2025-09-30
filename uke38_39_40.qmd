@@ -262,7 +262,7 @@ ln funksjon.
 Dataene til regresjonen er andre argument, mens første er selve funksjonen.
 Eks Y vil ikke vises siden den allerede er i dataen, mens X og Z er det vi ser visuelt i regresjonsmodellen.
 
-Sån som her: paste("Result:", .)
+Sånn som her: paste("Result:", .)
 
 Her vises punktumet på slutten at arggumentet skal komme inn som nummer 2 og ikke inn som nummer 1.
 
@@ -599,4 +599,114 @@ I porsent
    pull()
  
  round(100 * delays/flights_orig, 2)
+```
+
+## UKE 40
+
+Hvis det finnes en NA (Missing Value), vil hele resultatet være NA.
+
+-   Det går ant å sjekke om dette:
+
+-   is.na()
+
+sum(is.na(flights\$arr_delay))
+
+Hvis du får opp et svar som her blir 9430, vil det betyr at det er 9430 objekter her og de har alle verdien NA.
+
+arrange() endrer på rekkefølgen i dataen.
+
+```{r}
+names(flights)
+```
+
+```{r}
+flights |> 
+  arrange(month, day, sched_dep_time) |> 
+print(n = 10, width = 70)
+```
+
+Her har eg sortert utifra de ulike variablene, mens onda har eg gjort det gjennmo utifra månede med bruk av desc().
+
+```{r}
+flights |> 
+  arrange(desc(month), desc(day), month, day, sched_dep_time) |> 
+print(n = 10, width = 70)
+```
+
+```{r}
+flights |> 
+  arrange(desc(month), desc(day), month, day, sched_dep_time) |> 
+  select(year, day, sched_dep_time, dep_time, everything()) |> 
+print(n = 10, width = 70)
+```
+
+Everything tar alle variabelen utenom det som er blitt nevnt inn i tabellen.
+
+select() plukker variabler
+
+```{r}
+(my_vars <- select(flights, day, month, year, arr_delay))
+```
+
+Det går og ant å slette navn på variabler direkte i funkjsonen:
+
+-   Det er mulig å gjør det videre i en pipe og rename() funksjon
+
+```{r}
+(my_vars <- select(flights, day, month, year, arr_delay) |> 
+  rename(arival_delay = arr_delay))
+```
+
+Det går og ant å gjør det direkte inn i select()
+
+```{r}
+# Use a pipe
+my_vars_May <- flights %>%
+  filter(month == 5) %>%
+  select(day, month, year, arr_delay)
+
+median(my_vars$arival_delay)
+```
+
+```{r}
+median(my_vars$arival_delay, na.rm = TRUE)
+```
+
+Hvor mange NA er det?
+
+```{r}
+sum(is.na(my_vars$arival_delay))
+```
+
+```{r}
+table(is.na(my_vars$arival_delay))
+```
+
+Summarise()
+
+Svar som vektor med et element:
+
+Det som står onda her er feil
+
+```{r}
+(my_vars <- flights |> 
+  filter(month == 5) |> 
+  select(day, month, year, arival_delay) |>
+  summarise(median_arival_delay = median(arrival_delay, na.rm = TRUE)) |> 
+  pull()
+  )
+```
+
+Mutate prøver å regne 2 nye variabler i den eksisterende.
+
+```{r}
+my_new_data <- flights %>%
+  select(year:day, ends_with("delay"), distance, air_time) %>%
+  mutate(
+    gain = dep_delay - arr_delay,
+    speed = (distance/air_time) * 60
+    ) %>%
+  select(year:day, gain, everything()) %>%
+  arrange(gain)
+head(my_new_data, n = 5) 
 ```
