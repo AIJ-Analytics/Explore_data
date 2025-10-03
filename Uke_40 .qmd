@@ -1,5 +1,11 @@
 ---
-title: "Uke 39"
-format: html
-editor: visual
+title: "Uke 40"
+format: reveal.js
+editor: source
 ---
+
+\
+For å lage en presentasjon i PowerPoint:
+
+-   Lag en ny Quatro Document og trykk på presentasjon, trykker deretter på det Alfred anbefaler: Reveal JS, er den øverste av de tre alternativene.
+    Grunnen til vi har den er at den trenger en WebServer (automatisk WebServer), eller opp til en online nett server som alfred gjør med sine slides.
