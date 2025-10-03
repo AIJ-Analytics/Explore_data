@@ -1,0 +1,76 @@
+---
+title: "UKE40"
+format: html
+editor: visual
+---
+
+```{r}
+#| message: FALSE
+#| label: setup
+library(tidyverse)
+library(vtable)
+library(flextable)
+```
+
+##EDA
+
+```{r}
+my_heights <- modelr:: heights
+```
+
+```{r}
+# NAs in my_heights?
+my_heights %>% 
+  apply(MARGIN = 2, FUN = is.na) %>% 
+  apply(MARGIN = 2, FUN = sum) |> 
+  print(width = 40)
+```
+
+samme svar:
+
+```{r}
+# NAs in my_heights?
+my_heights %>% 
+  is.na() %>% 
+  apply(MARGIN = 2, FUN = sum)  |> 
+  print(width = 40)
+```
+
+```{r}
+# package vtable 
+# must be installed
+my_heights %>% 
+  select(
+    -marital, 
+    -sex
+    ) %>% 
+  # . to stop RStudio 
+  # complaining about 
+  # no data
+  vtable::st(data = ., out = "return") |> 
+  as_flextable()
+```
+
+Gjør den litt finere med flextable():
+
+```{r}
+# package vtable must 
+# be installed
+my_heights %>% 
+  select(marital, sex) %>% 
+  vtable::st(
+    data = ., 
+    out = "return"
+    ) |> 
+  as_flextable()
+```
+
+Det som er under er det du må skrive når du skal ha typ tekst i bilde ditt, eller om du skal ha en figur, da velger du den som passer.
+Typ skal du ha en tabell skrift så skriver du eks:
+
+#\| label: tbl-DescStat
+
+```{r}
+#| label: tbl-
+#| label: fig-
+```
