@@ -74,3 +74,27 @@ Typ skal du ha en tabell skrift så skriver du eks:
 #| label: tbl-
 #| label: fig-
 ```
+
+## Uke 41
+
+```{r}
+# package vtable 
+# must be installed
+tab1 <- my_heights |>  
+select(-marital, -sex) |> 
+
+vtable::st(out = "return") |> 
+as_flextable(show_coltype = FALSE, max_rows = 20)|> 
+
+line_spacing(space = 0,3) |> 
+autofit() |>     delete_part("footer") |> 
+theme_booktabs() |> 
+bg(i = 6, j = c(5, 8), bg = "purple")
+
+tab1
+```
+
+```{r}
+tab1 |> 
+bg(i = 3, j = c(2, 4), bg = "pink")
+```
