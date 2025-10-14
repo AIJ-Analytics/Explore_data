@@ -98,3 +98,64 @@ tab1
 tab1 |> 
 bg(i = 3, j = c(2, 4), bg = "pink")
 ```
+
+Bruk av ggplot
+
+```{r}
+ggplot(data = my_heights) +
+  geom_bar(
+    mapping = aes(
+      x = education
+      ), 
+    na.rm = TRUE
+    ) +
+   theme(
+     axis.text = element_text(
+       size = 15
+       ),
+    axis.title = element_text(
+       size = 15
+       )
+   )
+```
+
+## 14.10.2025
+
+```{r}
+#| label: setup
+library (tidyverse)
+```
+
+```{r}
+mtcars |> 
+  class()
+options(paged.print = FALSE)
+```
+
+```{r}
+mtcars_tib <- mtcars %>%  
+  as_tibble() %>%
+.["hp"] %>%  
+  head(n=1) %>% 
+  dim()
+```
+
+```{r}
+mtcars %>%
+  as_tibble() %>% 
+  select(wt) %>% 
+  pull()
+```
+
+```{r}
+mtcars["hp"]
+```
+
+```{r}
+mtcras_tib <- mtcars |> 
+  as_tibble(rownames = "model")
+
+mtcars_tib
+```
+
+-   Se videre på presentasjonen hans.
