@@ -159,3 +159,10 @@ mtcars_tib
 ```
 
 -   Se videre på presentasjonen hans.
+
+## 17.10.2025
+
+-   Hvis du skal kalle en variabel for et navn må du bruke dette tegnet som f.eks.
+    \`2020\` Dette er funksjonen tibbel.
+
+-   Når det kommer til Data Export så bruker ci write_excel_csv()
